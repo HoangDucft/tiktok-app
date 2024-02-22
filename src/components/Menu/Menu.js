@@ -52,8 +52,6 @@ function Menu({ children, items = [], onChange = defaultFn, hideOnClick = false 
         });
     };
 
-    // item đó là gì
-
     return (
         <Tippy
             interactive

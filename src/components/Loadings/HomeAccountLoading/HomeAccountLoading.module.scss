@@ -1,0 +1,49 @@
+.wrapper {
+    display: flex;
+    height: 150px;
+    width: 500px;
+    margin: 19px auto;
+}
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f7f4f4;
+    margin: 25px 12px;
+    padding: 24px;
+    flex: 1 auto;
+}
+.body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.nickname {
+    height: 10px;
+    background-color: #f7f4f4;
+    width: 50%;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    margin-top: 30px;
+}
+.fullname {
+    height: 10px;
+    background-color: #f7f4f4;
+    width: 80%;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+.description {
+    height: 10px;
+    background-color: #f7f4f4;
+    width: 40%;
+    border-radius: 8px;
+    margin-bottom: 6px;
+}
+.bio {
+    height: 10px;
+    background-color: #f7f4f4;
+    width: 60%;
+    border-radius: 8px;
+}

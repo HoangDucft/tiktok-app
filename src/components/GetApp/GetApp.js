@@ -12,30 +12,38 @@ const cx = classNames.bind(styles);
 
 function GetApp() {
     const context = useContext(ModalContextKey);
-    const [active, setActive] = useState(false);
+    const [backToTop, setBackToTop] = useState(true);
 
     const ScrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const handleWhenScolling = () => {
+        if (window.scrollY > 0) {
+            setBackToTop(true);
+        } else {
+            setBackToTop(false);
+        }
+    };
+
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                setActive(true);
-            } else {
-                setActive(false);
-            }
-        });
+        window.addEventListener('scroll', handleWhenScolling);
+
+        // remove this event right after first run
+        return () => {
+            window.removeEventListener('scroll', handleWhenScolling);
+        };
     }, []);
+
     return (
-        <div className={cx('wrapper', { active: active })}>
+        <div className={cx('wrapper', { 'back-top': backToTop })}>
             <div className={cx('get-app-container')}>
                 <TippyHeadless
                     interactive
                     trigger="click"
                     offset={[0, -30]}
                     placement="top-end"
-                    zIndex="99"
+                    zIndex="9999"
                     render={(attrs) => (
                         <Wrapper>
                             <div tabIndex="-1" {...attrs}>

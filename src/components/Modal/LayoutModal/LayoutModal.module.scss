@@ -1,13 +1,90 @@
-.layout-modal {
+.wrapper {
     position: fixed;
-    // 3 css ở dưới giúp căn giữa một modal
+    inset: 0;
+    z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
+}
 
-    z-index: 100;
-    background: rgba(0, 0, 0, 0.5);
+.layout-modal {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
     inset: 0;
+    animation: show-fade 500ms cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
 
-    min-height: 20rem;
+.wrapper.hidden-effect-default {
+    .layout-modal {
+        animation: hide-fade 500ms cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    }
+    .layout-content {
+        animation: hideLoginForm 500ms cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    }
+}
+
+.layout-content {
+    animation: showLoginForm 500ms cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+
+@keyframes show-fade {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hide-fade {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes show-scale {
+    from {
+        opacity: 0;
+        transform: scale(0.6);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes hide-scale {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+}
+
+@keyframes showLoginForm {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes hideLoginForm {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0);
+    }
 }

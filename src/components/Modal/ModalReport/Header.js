@@ -7,7 +7,7 @@ import { ArrowLeftIcon, XMarkIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
-function Header({ title, history, handleClose, onBack }) {
+function Header({ title, history, handleCloseModal, onBack }) {
     return (
         <div className={cx('header')}>
             {history.length > 1 && (
@@ -16,7 +16,7 @@ function Header({ title, history, handleClose, onBack }) {
                 </button>
             )}
             <h4 className={cx('header-title')}>{title}</h4>
-            <div className={cx('close')} onClick={handleClose}>
+            <div className={cx('close')} onClick={handleCloseModal}>
                 <XMarkIcon />
             </div>
         </div>

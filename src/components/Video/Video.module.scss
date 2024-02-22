@@ -3,17 +3,29 @@
     &:hover {
         .play-icon,
         .pause-icon,
+        .icon,
         .control-volume,
         .report {
-            opacity: 1;
+            opacity: 1 !important;
         }
     }
+}
+
+.video-loading {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    top: 48%;
 }
 
 .video-ui {
     border-radius: 8px;
     position: relative;
     cursor: pointer;
+}
+
+.hidden {
+    z-index: 0 !important;
 }
 
 .play-icon,
@@ -29,58 +41,77 @@
     z-index: 5;
 }
 
-.control-volume {
-    position: absolute;
-    bottom: 0px;
-    right: 26px;
+.volume-container {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: absolute;
+    right: 5px;
+    bottom: 24px;
+    transform: rotate(90deg);
+    transform-origin: calc(100% - 20px);
     align-items: center;
-    opacity: 0;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s;
-    &.active {
-        opacity: 1;
-    }
-    .range-volume {
-        width: 24px;
-        height: 64px;
-        margin: 8px 7px;
-        position: relative;
-        cursor: initial;
-        background: rgba(22, 24, 35, 0.34);
-        border-radius: 32px;
-        bottom: 50px;
-        &.active {
-            opacity: 0;
-        }
-        input {
-            // bien range thanh mau trong suot mau trang
-            background-color: #fff;
-            border-radius: 4px;
-            bottom: 30px;
-            height: 2px;
-            position: absolute;
-            right: -11px;
-            -webkit-transform: rotate(-90deg);
-            transform: rotate(-90deg);
-            width: 46px;
-
-            &::-webkit-slider-thumb {
-                -webkit-appearance: none;
-                width: 12px;
-                height: 12px;
-                background-color: #fff;
-                border-radius: 50%;
-                cursor: pointer;
-            }
+    &:hover {
+        .volume-control {
+            opacity: 1;
         }
     }
 }
 
-.icon {
+.volume-control {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background-color: rgba(22, 24, 35, 0.34);
+    height: 24px;
+    width: 64px;
+    padding: 0 8px;
+    right: 20px;
+    border-radius: 34px;
+    transform: rotate(180deg);
+    cursor: pointer;
+    opacity: 0;
+}
+
+.volume-background {
+    position: relative;
+    background-color: hsla(0deg, 0%, 100%, 0.34);
+    height: 2px;
+    border-radius: 50%;
+    width: 100%;
+}
+
+.volume-bar {
+    background-color: #fff;
+    border-radius: 50%;
+    height: 100%;
     position: absolute;
+}
+
+.volume-dot {
+    position: absolute;
+    top: 50%;
+    background-color: inherit;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    right: 0;
+    transform: translate(100%, -50%);
+}
+
+.volume-range {
+    position: absolute;
+    right: 6px;
+    height: 2px;
+    left: 6px;
+    opacity: 0;
+}
+
+.icon {
+    position: relative;
+    right: 10px;
+    bottom: 0px;
+    top: -1px;
+    transform: rotate(-90deg);
+    opacity: 00;
 }
 
 .report {
@@ -96,6 +127,10 @@
     opacity: 0;
     cursor: pointer;
     transition: opacity 0.3s;
+}
+
+.mute {
+    opacity: 1;
 }
 
 .report-title {

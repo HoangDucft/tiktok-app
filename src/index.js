@@ -5,17 +5,22 @@ import GlobalStyles from '~/components/GlobalStyles';
 import App from '~/App';
 import reportWebVitals from './reportWebVitals';
 import ProviderContext from './contexts/ProviderContext';
+import { Provider } from 'react-redux';
+import store from './redux/store/store';
 
 // my component
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>\
-    <ProviderContext>
-        <GlobalStyles>
-            <App />
-        </GlobalStyles>
-    </ProviderContext>,
+    <Provider store={store}>
+        <ProviderContext>
+            <GlobalStyles>
+                <App />
+            </GlobalStyles>
+        </ProviderContext>
+        ,
+    </Provider>,
 
     // </React.StrictMode>,
 );

@@ -1,9 +1,11 @@
 import className from 'classnames/bind';
-import { Link } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './VideoPlayer.module.scss';
 import Image from '~/components/Image';
+import { ModalContextKey } from '~/contexts/modalContext';
+import { useLocalStorage } from '~/hooks';
 import {
     BottomArrow,
     FlagIcon,
@@ -14,21 +16,25 @@ import {
     VolumeIcon,
     XMarkIcon,
 } from '~/components/Icons';
+import { changeVolume, toggleMuted, changeMuted } from '~/redux/slices/videoSlice';
 
 const cx = className.bind(styles);
 
-function VideoPlayer({ videoCurr }) {
+function VideoPlayer({ data = {}, handleClose, handleNextVideo, handlePrevVideo }) {
+    const { thumb_url: thumbUrl, file_url: videoUrl, avatar } = data;
     // ref
+    const { volume, muted } = useSelector((state) => state.video);
+    const dispatch = useDispatch();
     const videoRef = useRef();
     const volumeBarRef = useRef();
     const volumeDotRef = useRef();
     const progressVideoRef = useRef();
+    const context = useContext(ModalContextKey);
+    const [playId, setPlayId] = useState(0);
 
     //state
     const [active, setActive] = useState(false);
-    const [volume, setVolume] = useState(0.4);
-    const [mute, setMute] = useState(true);
-    const [prevVolume, setPrevVolume] = useState(volume);
+    const { setDataStorage } = useLocalStorage();
     const [percentage, setPercentage] = useState(0);
     const [position, setPosition] = useState(percentage);
     const [marginLeft, setMarginLeft] = useState(-20);
@@ -38,6 +44,70 @@ function VideoPlayer({ videoCurr }) {
     const [currentTime, SetCurrentTime] = useState(0);
 
     // handle event
+
+    useEffect(() => {
+        videoRef.current.muted = muted;
+    }, [muted]);
+
+    useEffect(() => {
+        const data = {
+            volume: volume,
+        };
+        setDataStorage(data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [volume]);
+
+    useEffect(() => {
+        const valueValid = valueValidate(volume, 0, 100);
+        if (muted) {
+            volumeBarRef.current.style.width = '0%';
+            volumeDotRef.current.style.transform = 'translate(100%, -50%)';
+        } else {
+            let percent = valueValid * 100;
+            volumeBarRef.current.style.width = percent + '%';
+            volumeDotRef.current.style.transform = `translate(${100 - percent}%, -50%)`;
+        }
+    }, [muted, volume]);
+
+    const handleChangVolume = (e) => {
+        const volume = +e.target.value;
+        const volumeValid = valueValidate(volume, 0, 100);
+
+        //update volume video
+        videoRef.current.volume = volumeValid / 100;
+
+        //update volume ui
+        volumeBarRef.current.style.width = volumeValid + '%';
+        volumeDotRef.current.style.transform = `translate(${100 - volumeValid}%, -50%)`;
+
+        //update icon ui when muted/!muted
+        volumeValid === 0 && !muted && dispatch(changeMuted(true));
+        volumeValid > 0 && muted && dispatch(changeMuted(false));
+    };
+
+    const handleToggleMuted = () => {
+        dispatch(toggleMuted());
+    };
+
+    const handleSetStateVolume = (e) => {
+        const value = +e.target.value;
+        const valueValid = valueValidate(value, 0, 100);
+        const action = changeVolume(valueValid / 100);
+        dispatch(action);
+    };
+
+    const valueValidate = (value, min, max) => {
+        let valueValid = value;
+
+        if (valueValid < min) {
+            valueValid = 0;
+        } else if (valueValid > max) {
+            valueValid = max;
+        }
+        return valueValid;
+    };
+
+    //handler video
     const play = () => {
         if (isPlaying === false) {
             videoRef.current.play();
@@ -58,23 +128,6 @@ function VideoPlayer({ videoCurr }) {
         } else {
             play();
             setIsplaying(true);
-        }
-    };
-
-    const handleChangVolume = (e) => {
-        const value = e.target.value;
-        volumeBarRef.current.style.width = value + '%';
-        setVolume(e.target.value / 100);
-    };
-
-    const toggleMute = () => {
-        if (mute) {
-            setVolume(prevVolume);
-            setMute(false);
-        } else {
-            setPrevVolume(volume);
-            setVolume(0);
-            setMute(true);
         }
     };
 
@@ -127,24 +180,6 @@ function VideoPlayer({ videoCurr }) {
         }
     };
 
-    // update sound video
-    useEffect(() => {
-        if (mute) {
-            videoRef.current.volume = 0;
-        } else {
-            videoRef.current.volume = volume;
-        }
-    });
-
-    // update sound ui
-    useEffect(() => {
-        if (mute) {
-            volumeBarRef.current.style.width = `${volume * 100}%`;
-        } else {
-            volumeBarRef.current.style.width = `${volume * 100}%`;
-        }
-    });
-
     useEffect(() => {
         const circleWidth = 16;
         const rangeWidth = progressVideoRef.current.getBoundingClientRect().width;
@@ -159,15 +194,15 @@ function VideoPlayer({ videoCurr }) {
 
     return (
         <div className={cx('video-player')}>
-            <p className={cx('video-background')} style={{ backgroundImage: `url('${videoCurr?.avatar}')` }}></p>
+            <p className={cx('video-background')} style={{ backgroundImage: `url('${avatar}')` }}></p>
             <div className={cx('video-wrapper')} onClick={togglePlayVideo}>
-                <Image className={cx('video-image')} src={videoCurr?.thumb_url}></Image>
+                <Image className={cx('video-image')} src={thumbUrl}></Image>
                 <video
                     className={cx('video')}
-                    autoPlay={false}
+                    autoPlay
                     ref={videoRef}
                     loop
-                    src={videoCurr?.file_url}
+                    src={videoUrl}
                     onLoadedData={handleSetDuration}
                     onTimeUpdate={getCurrentPercentAndTime}
                 ></video>
@@ -210,24 +245,24 @@ function VideoPlayer({ videoCurr }) {
             <div className={cx('play-icon_wrapper', { active: active })} onClick={togglePlayVideo}>
                 <PlaySolidIcon className={cx('play-icon')} />
             </div>
-            <Link to="/">
-                <div className={cx('close-icon_wrapper')}>
-                    <XMarkIcon className={cx('close-icon')} />
-                </div>
-            </Link>
+
+            <div className={cx('close-icon_wrapper')} onClick={handleClose}>
+                <XMarkIcon className={cx('close-icon')} />
+            </div>
+
             <div className={cx('tiktok-logo_wrapper')}>
                 <TiktokIcon className={cx('tiktok-logo')} />
             </div>
             <div className={cx('volume-container')}>
-                <div className={cx('volume-control', { active: mute })}>
+                <div className={cx('volume-control')}>
                     <div className={cx('volume-background')}>
                         <div className={cx('volume-range')} ref={volumeBarRef}>
                             <div className={cx('volume-circle')} ref={volumeDotRef}></div>
                         </div>
                         <input
                             className={cx('volume-input')}
-                            value={volume * 100}
                             onChange={handleChangVolume}
+                            onMouseUp={handleSetStateVolume}
                             type="range"
                             min="0"
                             max="100"
@@ -235,8 +270,8 @@ function VideoPlayer({ videoCurr }) {
                         ></input>
                     </div>
                 </div>
-                <div className={cx('browser-sound')} onClick={toggleMute}>
-                    {mute ? (
+                <div className={cx('browser-sound', { mute: muted })} onClick={handleToggleMuted}>
+                    {muted ? (
                         <div className={cx('volume-mute_wrapper')}>
                             <MuteIcon className={cx('volume-mute')} />
                         </div>
@@ -247,17 +282,19 @@ function VideoPlayer({ videoCurr }) {
                     )}
                 </div>
             </div>
-            <div className={cx('top-arrow_wrapper')}>
+            <div className={cx('top-arrow_wrapper')} onClick={handlePrevVideo}>
                 <TopArrow className={cx('top-arrow')} />
             </div>
-            <div className={cx('bottom-arrow_wrapper')}>
+            <div className={cx('bottom-arrow_wrapper')} onClick={handleNextVideo}>
                 <BottomArrow className={cx('bottom-arrow')} />
             </div>
             <div className={cx('browser-report')}>
                 <div className={cx('report-wrapper')}>
                     <FlagIcon className={cx('report-icon')} />
                 </div>
-                <div className={cx('report-title')}>Report</div>
+                <div className={cx('report-title')} onClick={context.handleShowModalReport}>
+                    Report
+                </div>
             </div>
         </div>
     );

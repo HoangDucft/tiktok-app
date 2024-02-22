@@ -8,7 +8,7 @@ import Upload from '~/pages/Upload';
 import Search from '~/pages/Search';
 import Live from '~/pages/Live';
 import config from '~/config';
-import BrowserVideo from '~/pages/BrowserVideo';
+import VideoPage from '~/pages/VideoPage/VideoPage';
 
 //public routes (no need login)
 const publicRoutes = [
@@ -34,7 +34,6 @@ const publicRoutes = [
     {
         path: config.routes.search,
         component: Search,
-        layout: null,
     },
     {
         path: config.routes.upload,
@@ -42,8 +41,8 @@ const publicRoutes = [
         layout: HeaderOnly,
     },
     {
-        path: config.routes.Video,
-        component: BrowserVideo,
+        path: config.routes.video,
+        component: VideoPage,
         layout: null,
     },
 ];

@@ -19,27 +19,35 @@ import {
     HashtagIcon,
 } from '~/components/Icons';
 import Button from '~/components/Button';
-import request from '~/utils/requestHttp';
 import { ModalContextKey } from '~/contexts/modalContext';
 const cx = classNames.bind(styles);
 
 function Sidebar({ shrink }) {
+    const [suggestedUsers, setSuggestedUsers] = useState([]);
+    const [seeAll, setSeeAll] = useState(false);
     const context = useContext(ModalContextKey);
     const currentUser = false;
-    const [suggestedUsers, setSuggestedUsers] = useState([]);
+
+    const { maxSuggestedAcounts: maxAccounts, defaultSuggestedAccounts: minAccounts } = config.accounts;
+
+    const currentAccounts = seeAll ? suggestedUsers : suggestedUsers.slice(0, minAccounts);
+
+    const handleSeeAll = () => {
+        setSeeAll(!seeAll);
+    };
+
     useEffect(() => {
-        accountService
-            .getSuggestedAccount({ page: 1, perPage: 5 })
-            .then((data) => {
-                setSuggestedUsers(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
+        const fetchApi = async () => {
+            const result = await accountService.getSuggestedAccount(maxAccounts);
+
+            setSuggestedUsers(result);
+        };
+
+        fetchApi();
+    });
 
     return (
-        <aside className={cx('wrapper', { shrink: shrink })}>
+        <div className={cx('wrapper', { shrink: shrink })}>
             <Menu>
                 <MenuItem
                     to={config.routes.home}
@@ -72,7 +80,7 @@ function Sidebar({ shrink }) {
                 </div>
             )}
 
-            <SuggestedAccounts label="Suggested Accounts" data={suggestedUsers} />
+            <SuggestedAccounts label="Suggested Accounts" data={currentAccounts} onClick={handleSeeAll} />
 
             <div className={cx('discover')}>
                 <div className={cx('discover-list')}>
@@ -180,7 +188,7 @@ function Sidebar({ shrink }) {
                 </div>
                 <span className={cx('coppy-right')}> © 2023 - Make TikTok Web By | Hoàng Đức</span>
             </div>
-        </aside>
+        </div>
     );
 }
 

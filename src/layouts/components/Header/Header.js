@@ -29,7 +29,7 @@ import { ModalContextKey } from '~/contexts/modalContext';
 const cx = classNames.bind(styles);
 
 function Header({ stretch }) {
-    const currentUser = true;
+    const currentUser = false;
     const context = useContext(ModalContextKey);
 
     const handleChange = (menuItem) => {
@@ -71,7 +71,7 @@ function Header({ stretch }) {
         {
             icon: <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>,
             title: 'View profile',
-            to: '/hvd102020iku',
+            to: '@82kontummaidinh',
         },
         {
             icon: <FontAwesomeIcon icon={faCoins}></FontAwesomeIcon>,
@@ -99,7 +99,9 @@ function Header({ stretch }) {
                     <img src={images.logo} alt="TikTok" />
                 </Link>
 
-                <Search />
+                <div className={cx('search-input')}>
+                    <Search />
+                </div>
 
                 <div className={cx('actions')}>
                     {currentUser ? (
@@ -141,7 +143,6 @@ function Header({ stretch }) {
                             <Image
                                 className={cx('user-avatar')}
                                 src="https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-1/324334893_535464408543422_5974447694415723186_n.jpg?stp=dst-jpg_p320x320&_nc_cat=103&ccb=1-7&_nc_sid=7206a8&_nc_ohc=cOWyiATN4AYAX-_j4ZS&_nc_ht=scontent.fdad1-4.fna&oh=00_AfC68vULHq0_tQ2Wmq63ob3Bz2CMJAzCJcJdGsj5rFyFxw&oe=63DEADCC"
-                                alt="Hvd102020iku"
                             ></Image>
                         ) : (
                             <button className={cx('more-btn')}>

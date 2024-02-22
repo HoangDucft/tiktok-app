@@ -53,6 +53,9 @@ body {
     &.hidden {
         overflow: hidden;
     }
+    &.video-modal {
+        overflow: hidden;
+    }
 }
 
 // scroll bar

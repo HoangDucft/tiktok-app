@@ -1,0 +1,15 @@
+.wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 444px;
+}
+
+.message {
+    margin-top: 24px;
+}
+
+.title {
+    color: rgba(22, 24, 34, 0.75);
+}

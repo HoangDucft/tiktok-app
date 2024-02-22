@@ -1,191 +1,128 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import className from 'classnames/bind';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
-import {
-    AppleIcon,
-    ChevronDownIcon,
-    FaceBookIcon,
-    GoogleIcon,
-    InstagramIcon,
-    KaraoTalkIcon,
-    LineIcon,
-    LinkedinIcon,
-    QRIcon,
-    UserIcon,
-    XMarkIcon,
-} from '~/components/Icons';
+import { ArrowLeftIcon, ChevronDownIcon, XMarkIcon } from '~/components/Icons';
 import styles from './ModalForm.module.scss';
 import LayoutModal from '~/components/Modal/LayoutModal';
+import { loginData, registerData } from './dataModalForm';
+
 const cx = className.bind(styles);
 
 function ModalForm({ handleClose }) {
-    const [modalForm, setModalForm] = useState('login');
-    const [renderForm, setRenderForm] = useState([]);
+    const [tabList, setTablist] = useState([loginData]);
+    const [isClose, setIsClose] = useState(false);
+    const [registering, setRegistering] = useState(false);
+    const [fullListRegister, setFullListRegister] = useState(false);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const MODAL_MENU = useMemo(
-        () => [
-            {
-                type: 'login',
-                title: 'Log in to TikTok',
-                childrens: [
-                    {
-                        icon: <QRIcon />,
-                        title: 'Use QR Code',
-                    },
-                    {
-                        icon: <UserIcon />,
-                        title: 'Use phone/ email/ username',
-                    },
-                    {
-                        icon: <FaceBookIcon />,
-                        title: 'Continue with FaceBook',
-                    },
-                    {
-                        icon: <GoogleIcon />,
-                        title: 'Continue with Google',
-                    },
-                    {
-                        icon: <LinkedinIcon />,
-                        title: 'Continue with Twitter',
-                    },
-                    {
-                        icon: <LineIcon />,
-                        title: 'Continue with Line',
-                    },
-                    {
-                        icon: <KaraoTalkIcon />,
-                        title: 'Continue with Karaotalk',
-                    },
-                    {
-                        icon: <AppleIcon />,
-                        title: 'Continue with Apple',
-                    },
-                    {
-                        icon: <InstagramIcon />,
-                        title: 'Continue with Instagram',
-                    },
-                ],
-            },
-            {
-                type: 'register',
-                title: 'Sign up for TikTok',
-                showMore: true,
-                childrens: [
-                    {
-                        title: 'Use phone or  email',
-                        icon: <UserIcon />,
-                    },
-                    {
-                        title: 'Continue with Facebook',
-                        icon: <FaceBookIcon />,
-                    },
-                    {
-                        title: 'Continue with Google',
-                        icon: <GoogleIcon />,
-                    },
-                ],
-            },
-            {
-                type: 'register-expanded',
-                title: 'Sign up for TikTok',
-                childrens: [
-                    {
-                        title: 'Use phone or  email',
-                        icon: <UserIcon />,
-                    },
-                    {
-                        title: 'Continue with Facebook',
-                        icon: <FaceBookIcon />,
-                    },
-                    {
-                        title: 'Continue with Google',
-                        icon: <GoogleIcon />,
-                    },
-                    {
-                        title: 'Use phone or  Twitter',
-                        icon: <LinkedinIcon />,
-                    },
-                    {
-                        title: 'Continue with LINE',
-                        icon: <LineIcon />,
-                    },
-                    {
-                        title: 'Continue with KaraoTalk',
-                        icon: <KaraoTalkIcon />,
-                    },
-                ],
-            },
-        ],
-        [],
-    );
+    let currentTab = tabList[tabList.length - 1];
 
-    useEffect(() => {
-        const currentForm = MODAL_MENU.find((form) => {
-            return form.type === modalForm;
-        });
-        setRenderForm(currentForm);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [modalForm]);
+    const handleCloseModal = () => {
+        setIsClose(true);
+    };
+
+    const handleGoToChildrenTab = (loginItem) => {
+        const hasChildren = !!loginItem.children;
+        if (hasChildren) {
+            setTablist([...tabList, loginItem.children]);
+        }
+    };
+    const handleBackToChildrenTap = () => {
+        const newTabList = [...tabList];
+        newTabList.pop();
+        setTablist(newTabList);
+    };
+
+    const handleGoToLogin = () => {
+        setTablist([loginData]);
+        setRegistering(false);
+    };
+
+    const handleGoToRegister = () => {
+        setTablist([registerData]);
+        setRegistering(true);
+    };
+
+    if (registering && !fullListRegister) {
+        const isArray = Array.isArray(currentTab.data);
+        // giai thich : nếu là menu cấp 1 thì sẽ không gây lỗi vì lúc đó data là một mảng nên kiểm tra là mảng là true,
+        //nhưng nếu qua menu cấp 2 của thằng con thì lúc đó thằng data là một component,
+        //nên lúc đó sẽ gây ra lỗi khi dùng currentTab.data.slice vì lúc đó thằng currentTab.data không phải là mảng,
+        //do đó ta phải check kiểm tra xem thằng currentTab.data có phải là  một mảng không ,
+        //nếu là mảng thì cắt còn ko phải thì không làm gì cả
+        if (isArray) {
+            currentTab = { ...currentTab }; // Lúc đầu tablist là một mảng có 1 phần tử, sau đó bỏ dấu mảng ra và rải vào đó một object mới có 6 phần tử
+            // và đưa vào một object mới, suy ra currentTab giờ có 2 object , sau khi render ra phần tử data có 3 phan tử
+            // thì nó sẽ load lại trang web và sẽ cắt đi một phần tử lên lần render bây giờ sẽ là phần tử có 6 phần tử
+            currentTab.data = currentTab.data.slice(0, 3);
+        }
+    }
 
     return (
-        <LayoutModal>
-            <div className={cx('wrapper')}>
-                <div className={cx('container')}>
+        <LayoutModal className={cx('modal-wrapper')} isClose={isClose} handleClose={handleClose}>
+            <div className={cx('container')}>
+                {tabList.length > 1 && (
+                    <div
+                        className={cx('back-btn')}
+                        onClick={() => {
+                            handleBackToChildrenTap();
+                        }}
+                    >
+                        <ArrowLeftIcon className={cx('back-icon')} />
+                    </div>
+                )}
+                <h1 className={cx('login-title')}>{currentTab.title}</h1>
+                {currentTab.type === 'component' ? (
+                    <currentTab.data />
+                ) : (
                     <div className={cx('inner')}>
-                        <h1 className={cx('login-title')}>{renderForm.title}</h1>
                         <div className={cx('login-list')}>
-                            {renderForm.childrens?.map((children, index) => {
+                            {currentTab.data?.map((loginItem, index) => {
                                 return (
-                                    <button className={cx('login-item')} key={index}>
-                                        <div className={cx('icon')}>{children.icon}</div>
-                                        <span className={cx('title')}>{children.title}</span>
+                                    <button
+                                        className={cx('login-item', { disable: loginItem.disable })}
+                                        key={index}
+                                        onClick={() => handleGoToChildrenTab(loginItem)}
+                                    >
+                                        <div className={cx('icon')}>{loginItem.icon}</div>
+                                        <span className={cx('title')}>{loginItem.title}</span>
                                     </button>
                                 );
                             })}
-                            {renderForm.showMore && (
-                                <>
-                                    <div className={cx('expand-btn')} onClick={() => setModalForm('register-expanded')}>
-                                        <ChevronDownIcon />
-                                    </div>
-                                    <p className={cx('main-title')}>
-                                        By continuing, you agree to TikTok's
-                                        {
-                                            <Link to="">
-                                                <strong className={cx('sub-title')}>Terms of Service</strong>
-                                            </Link>
-                                        }
-                                        and confirm that you have read TikTok's
-                                        {
-                                            <Link to="">
-                                                <strong className={cx('sub-title')}>PrivLinkcy Policy</strong>
-                                            </Link>
-                                        }
-                                    </p>
-                                </>
+
+                            {registering && !fullListRegister && tabList.length === 1 && (
+                                <div className={cx('expand-btn')} onClick={() => setFullListRegister(true)}>
+                                    <ChevronDownIcon />
+                                </div>
                             )}
                         </div>
                     </div>
-                    <div className={cx('footer')}>
-                        {modalForm === 'login' ? (
-                            <>
-                                <span> Don't have an account?</span>
-                                <p onClick={() => setModalForm('register')}>Sign up</p>
-                            </>
-                        ) : (
-                            <>
-                                <span>Already have an account?</span>
-                                <p onClick={() => setModalForm('login')}>Log in</p>
-                            </>
-                        )}
+                )}
+
+                {/* {renderForm.showMore === false && (
+                    <div className={cx('term-registration')}>
+                        <p className={cx('main-title')}>
+                            By continuing, you agree to TikTok's
+                            <a href="/">
+                                <strong className={cx('sub-title')}>Terms of Service</strong>
+                            </a>
+                            and confirm that you have read TikTok's
+                            <a href="/">
+                                <strong className={cx('sub-title')}>PrivLinkcy Policy</strong>
+                            </a>
+                        </p>
+                    </div>
+                )} */}
+                <div className={cx('footer')}>
+                    {registering ? <span>Already have an account?</span> : <span> Don't have an account?</span>}
+                    <div className={cx('register-btn')} onClick={registering ? handleGoToLogin : handleGoToRegister}>
+                        {registering ? <p>Log in</p> : <p>Sign up</p>}
                     </div>
                 </div>
+            </div>
 
-                <div className={cx('close')} onClick={handleClose}>
-                    <XMarkIcon />
-                </div>
+            <div className={cx('close')} onClick={handleCloseModal}>
+                <XMarkIcon />
             </div>
         </LayoutModal>
     );

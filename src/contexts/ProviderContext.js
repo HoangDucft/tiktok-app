@@ -1,7 +1,12 @@
+import VideoModalContext from './VideoModalContext';
 import ModalContext from './modalContext';
 
 function ProviderContext({ children }) {
-    return <ModalContext>{children}</ModalContext>;
+    return (
+        <ModalContext>
+            <VideoModalContext>{children}</VideoModalContext>
+        </ModalContext>
+    );
 }
 
 export default ProviderContext;

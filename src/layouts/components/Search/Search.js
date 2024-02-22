@@ -4,12 +4,15 @@ import { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { useDebounce } from '~/hooks';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Wrapper as PopperWrapper } from '~/components/Wrapper';
 import AccountItem from '~/components/AccountItem';
 import { SearchIcon } from '~/components/Icons';
 import styles from './Search.module.scss';
 import * as searchService from '~/services/searchService';
+import config from '~/config';
+import configs from '~/config';
 
 const cx = classNames.bind(styles);
 function Search() {
@@ -19,6 +22,8 @@ function Search() {
     const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
+    const formRef = useRef();
+    const navigate = useNavigate();
     const debouncedValue = useDebounce(searchValue, 600);
     const handleClear = () => {
         setSearchValue('');
@@ -40,6 +45,14 @@ function Search() {
         setShowResult(false);
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!!searchResult) {
+            navigate(`${configs.routes.search}?q=${searchValue}`);
+            setShowResult(false);
+        }
+    };
+
     useEffect(() => {
         if (!debouncedValue.trim()) {
             setSearchResult([]);
@@ -50,7 +63,7 @@ function Search() {
             setLoading(true);
 
             // khúc này nhận được các account trả về và set nó vào setSearchResult
-            const result = await searchService.search(debouncedValue);
+            const result = await searchService.search(debouncedValue, 'less', 1);
             setSearchResult(result);
 
             setLoading(false);
@@ -75,35 +88,40 @@ function Search() {
                         {/** đây là render các account */}
                         <PopperWrapper>
                             <h3 className={cx('search-title')}>Accounts</h3>
-                            {searchResult.map((result) => (
+                            {searchResult?.map((result) => (
                                 <AccountItem key={result.id} data={result} />
                             ))}
+                            <Link to={`${config.routes.search}?q=${searchValue}`}>
+                                <div className={cx('search-more')}>See all the results for "{searchValue}"</div>
+                            </Link>
                         </PopperWrapper>
                     </div>
                 )}
             >
                 {/** đây là ô search */}
-                <div className={cx('search')}>
-                    <input
-                        ref={inputRef}
-                        value={searchValue}
-                        placeholder="Search accounts and videos "
-                        spellCheck={false}
-                        onChange={handleInputChange}
-                        onFocus={() => {
-                            setShowResult(true);
-                        }}
-                    ></input>
-                    {searchValue && !loading && (
-                        <button className={cx('clear')} onClick={handleClear}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
+                <form ref={formRef} onSubmit={handleSubmit}>
+                    <div className={cx('search')}>
+                        <input
+                            ref={inputRef}
+                            value={searchValue}
+                            placeholder="Search accounts and videos "
+                            spellCheck={false}
+                            onChange={handleInputChange}
+                            onFocus={() => {
+                                setShowResult(true);
+                            }}
+                        ></input>
+                        {searchValue && !loading && (
+                            <button className={cx('clear')} onClick={handleClear}>
+                                <FontAwesomeIcon icon={faCircleXmark} />
+                            </button>
+                        )}
+                        {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                        <button className={cx('search-btn')} onMouseDown={handleOnMouseDown}>
+                            <SearchIcon />
                         </button>
-                    )}
-                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                    <button className={cx('search-btn')} onMouseDown={handleOnMouseDown}>
-                        <SearchIcon />
-                    </button>
-                </div>
+                    </div>
+                </form>
             </TippyHeadless>
         </div>
     );

@@ -10,26 +10,26 @@ import styles from './AccountPreview.module.scss';
 import { ModalContextKey } from '~/contexts/modalContext';
 const cx = classNames.bind(styles);
 
-function Preview({ data }) {
+function Preview({ avatarUrl, firstName, lastName, tick, userName, likesCount, followersCount }) {
     const context = useContext(ModalContextKey);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
-                <Image className={cx('avatar')} src={data.avatar} alt={data.last_name} />
+                <Image className={cx('avatar')} src={avatarUrl} alt={lastName} />
                 <Button primary onClick={context.handleShowModalForm}>
                     Follow
                 </Button>
             </div>
             <div className={cx('body')}>
                 <p className={cx('nickname')}>
-                    <strong>{`${data.first_name} ${data.last_name}`}</strong>
-                    {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCircleCheck} />}
+                    <strong>{`${firstName} ${lastName}`}</strong>
+                    {tick && <FontAwesomeIcon className={cx('check')} icon={faCircleCheck} />}
                 </p>
-                <p className={cx('name')}>{data.nickname}</p>
+                <p className={cx('name')}>{userName}</p>
                 <p className={cx('analitics')}>
-                    <strong className={cx('value')}>{data.followers_count}</strong>
+                    <strong className={cx('value')}>{followersCount}</strong>
                     <span className={cx('label')}>Follower</span>
-                    <strong className={cx('value')}>{data.likes_count}M</strong>
+                    <strong className={cx('value')}>{likesCount}M</strong>
                     <span className={cx('label')}>Like</span>
                 </p>
             </div>
@@ -38,7 +38,13 @@ function Preview({ data }) {
 }
 
 Preview.propTypes = {
-    data: propTypes.object.isRequired,
+    children: propTypes.element,
+    className: propTypes.string,
+    avatarUrl: propTypes.string,
+    userName: propTypes.string,
+    fullName: propTypes.string,
+    tick: propTypes.bool,
+    bio: propTypes.string,
 };
 
 export default Preview;

@@ -1,0 +1,42 @@
+.result-item {
+    padding: 16px 0 16px 16px;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.result-image {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.result-info {
+    margin-left: 12px;
+}
+.nickname {
+    color: black;
+    font-size: 1.8rem;
+    line-height: 25px;
+}
+.group-info {
+    display: flex;
+    font-size: 1.4rem;
+}
+.username {
+    margin-right: 6px;
+    color: rgba(22, 24, 35, 0.75);
+}
+.follower {
+    margin: 0px 6px;
+    color: rgba(22, 24, 35, 0.75);
+}
+.follower-count {
+    margin-right: 4px;
+}
+.bio {
+    font-size: 1.4rem;
+    color: rgba(22, 24, 35, 0.75);
+}

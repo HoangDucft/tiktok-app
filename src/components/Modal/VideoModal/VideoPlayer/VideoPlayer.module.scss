@@ -5,6 +5,12 @@
     position: relative;
     padding: 0 80px;
     overflow: hidden;
+    &:hover {
+        .volume-control,
+        .browser-sound {
+            opacity: 1;
+        }
+    }
 }
 .video-background {
     // set chiều dài rộng cố định là 10%
@@ -177,11 +183,6 @@
     transform: rotate(90deg);
     align-items: center;
     transform-origin: calc(100% - 20px);
-    &:hover {
-        .volume-control {
-            opacity: 1;
-        }
-    }
 }
 .volume-control {
     display: flex;
@@ -191,13 +192,10 @@
     background-color: hsla(0, 0%, 100%, 0.12);
     border-radius: 32px;
     margin: 0 8px;
-    padding: 0 20px;
+    padding: 0 12px;
     position: relative;
     align-items: center;
-    opacity: 1;
-    &.active {
-        opacity: 0;
-    }
+    opacity: 0;
 }
 .volume-background {
     background-color: hsla(0, 0%, 100%, 0.34);
@@ -205,12 +203,17 @@
     height: 4px;
     width: 100%;
     position: relative;
+    &:hover {
+        .volume-control {
+            opacity: 1;
+        }
+    }
 
     & .volume-input {
         position: absolute;
-        right: -6px;
+        right: 0px;
         height: 4px;
-        left: -10px;
+        left: -1px;
         opacity: 0;
     }
 }
@@ -219,9 +222,7 @@
     background-color: #fff;
     border-radius: inherit;
     height: 100%;
-    left: 0;
     position: absolute;
-    top: 0;
     width: 0%;
 }
 .volume-circle {
@@ -229,16 +230,24 @@
     border-radius: 50%;
     height: 16px;
     position: absolute;
-    right: -6px;
-    top: -6px;
+    right: 0;
+    top: 50%;
     width: 16px;
+    transform: translate(100%, -50%);
 }
+
 .browser-sound {
     transform: rotate(-90deg);
     position: absolute;
     bottom: -5px;
     right: 4px;
+    opacity: 0;
 }
+
+.mute {
+    opacity: 1;
+}
+
 .volume-default_wrapper,
 .volume-mute_wrapper {
     position: absolute;

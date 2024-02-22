@@ -22,7 +22,6 @@
     width: var(--default-layout-width);
     padding: 0 var(--default-layout-horizontal-spacer);
     align-items: center;
-    justify-content: space-between;
     &.stretch {
         width: 100%;
     }
@@ -30,6 +29,11 @@
 
 .logo-link {
     display: flex;
+}
+
+.search-input {
+    margin-left: 320px;
+    margin-right: 150px;
 }
 //action
 

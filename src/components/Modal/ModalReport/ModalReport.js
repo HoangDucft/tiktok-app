@@ -9,13 +9,17 @@ import LayoutModal from '../LayoutModal';
 
 const cx = className.bind(styles);
 
-function ModalReport({ handleClose, items = [] }) {
+function ModalReport({ handleClose, modalReportMenu }) {
     const [typeReport, setTypeReport] = useState(false);
-    const [history, setHistory] = useState([{ data: items }]);
+    const [history, setHistory] = useState([{ data: modalReportMenu }]);
+    const [isClose, setIsClose] = useState(false);
 
     const current = history[history.length - 1];
     const handleBack = () => {
         setHistory((prev) => prev.slice(0, prev.length - 1));
+    };
+    const handleCloseModal = () => {
+        setIsClose(true);
     };
 
     useEffect(() => {
@@ -30,9 +34,9 @@ function ModalReport({ handleClose, items = [] }) {
     }, [current]);
 
     return (
-        <LayoutModal>
+        <LayoutModal isClose={isClose} handleClose={handleClose}>
             <div className={cx('wrapper')}>
-                <Header history={history} title="Báo cáo" handleClose={handleClose} onBack={handleBack} />
+                <Header history={history} title="Báo cáo" handleCloseModal={handleCloseModal} onBack={handleBack} />
                 {typeReport === true ? (
                     <div className={cx('container')}>
                         <div className={cx('warning-title')}>Chúng tôi không cho phép: </div>

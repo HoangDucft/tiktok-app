@@ -1,0 +1,46 @@
+.result-list {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.result-item {
+    padding: 16px 0 16px 16px;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.result-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: rgba(22, 24, 35, 0.07);
+}
+
+.result-info {
+    margin-left: 12px;
+    width: 100%;
+}
+.nickname {
+    background-color: rgba(22, 24, 35, 0.07);
+    font-size: 1.8rem;
+    line-height: 25px;
+    width: 40%;
+    height: 40%;
+    margin-bottom: 5px;
+    border-radius: 2px;
+}
+.group-info {
+    display: flex;
+    font-size: 1.4rem;
+    height: 100%;
+}
+.username {
+    margin-right: 6px;
+    background-color: rgba(22, 24, 35, 0.07);
+    width: 70%;
+    height: 40%;
+    border-radius: 2px;
+}

@@ -1,30 +1,24 @@
 import classNames from 'classnames/bind';
 import propTypes from 'prop-types';
-import { useEffect, useState } from 'react';
 
 import Button from '~/components/Button';
 import LayoutModal from '~/components/Modal/LayoutModal';
 import styles from './ModalBlock.module.scss';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 function ModalBlock({ handleClose, propDataModalBlock }) {
-    const [data, setData] = useState('');
+    const [isClose, setIsClose] = useState(false);
 
-    useEffect(() => {
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/@${propDataModalBlock.nickname}`)
-            .then((res) => {
-                return res.json();
-            })
-            .then((res) => {
-                return setData(res.data);
-            });
-    }, []);
-
+    const { nickname, first_name: firstName, last_name: lastName } = propDataModalBlock;
+    const handleCloseModal = () => {
+        setIsClose(true);
+    };
     return (
-        <LayoutModal>
+        <LayoutModal isClose={isClose} handleClose={handleClose}>
             <div className={cx('container')}>
                 <div className={cx('heading')}>
-                    {data.nickname} ({`${data.first_name} ${data.last_name}`})
+                    {firstName && lastName ? ` ${nickname} (${firstName} ${lastName})` : nickname}
                 </div>
                 <div className={cx('title')}>
                     They will not be able to send you messages, see your posts, or find your profile. This doesn't
@@ -32,7 +26,7 @@ function ModalBlock({ handleClose, propDataModalBlock }) {
                     both participate in. They will not be notified that you blocked them.
                 </div>
                 <div className={cx('button')}>
-                    <Button className={cx('cancel-btn')} text outline onClick={handleClose}>
+                    <Button className={cx('cancel-btn')} text outline onClick={handleCloseModal}>
                         Cancel
                     </Button>
                     <Button className={cx('block-btn')} outline>
@@ -45,6 +39,7 @@ function ModalBlock({ handleClose, propDataModalBlock }) {
 }
 ModalBlock.propTypes = {
     handleClose: propTypes.func,
+    propDataModalBlock: propTypes.object,
 };
 
 export default ModalBlock;

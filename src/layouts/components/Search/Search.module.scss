@@ -11,7 +11,7 @@
         background-color: transparent;
         line-height: 22px;
         height: 100%;
-        padding-right:40px;
+        padding-right: 40px;
         flex: 1;
         color: var(--black);
         caret-color: var(--primary);
@@ -44,6 +44,18 @@
     font-size: 1.5rem;
     font-weight: 600;
     background: rgba(22, 24, 35, 0.03);
+}
+
+.search-more {
+    font-size: 1.8rem;
+    line-height: 22px;
+    font-weight: 600;
+    padding: 9px 15px;
+    color: #333;
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(22, 24, 35, 0.06);
+    }
 }
 
 .clear,

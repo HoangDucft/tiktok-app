@@ -6,12 +6,12 @@ const images = {
     amazoneImage: require('~/assets/images/amazon-image.png'),
     appStoresImage: require('~/assets/images/appstore-image.png'),
     microsoftImage: require('~/assets/images/microsoft-image.png'),
-    avtarImage: require('~/assets/images/public-avatar.jpg'),
-    avtarGirl: require('~/assets/images/gaixinhdaman.jpeg'),
     denisdangImage: require('~/assets/images/denis dang.jpg'),
     jackMaImage: require('~/assets/images/jack ma.jpg'),
     billGateImage: require('~/assets/images/billgate.jpg'),
     einsteinAvatar: require('~/assets/images/einstein.jpg'),
+    qrImage: require('~/assets/images/exampleQR.jpg'),
+    loginWithQRGuide: require('~/assets/images/loginWithQRGuide.gif'),
 };
 
 export default images;

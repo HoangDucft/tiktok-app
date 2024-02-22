@@ -1,12 +1,12 @@
 import { createContext } from 'react';
+import { VideoModal } from '~/components/Modal';
 import { useVideoModal } from '~/hooks';
-import BrowserVideo from '~/pages/BrowserVideo/BrowserVideo';
 
 export const VideoModalContextKey = createContext();
 
 function VideoModalContext({ children }) {
     // Video modal
-    const { VideoModalComponent, videoModalState, propsVideoModal, setPropsVideoModal } = useVideoModal(BrowserVideo);
+    const { VideoModalComponent, videoModalState, propsVideoModal, setPropsVideoModal } = useVideoModal(VideoModal);
 
     const contextValue = { videoModalState, propsVideoModal, setPropsVideoModal };
     return (

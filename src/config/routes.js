@@ -5,6 +5,6 @@ const routes = {
     upload: '/upload',
     search: '/search',
     live: '/live',
-    Video: '/@:nickname/video/:id',
+    video: '/:nickname/video/:id',
 };
 export default routes;
