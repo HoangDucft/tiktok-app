@@ -1,0 +1,25 @@
+.Liked-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 490px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.padlock-icon {
+    fill-opacity: 0.34;
+}
+.title {
+    margin-top: 52px;
+    color: #161823;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 28px;
+}
+.description {
+    color: rgba(22, 24, 35, 0.75);
+    font-weight: 400;
+    margin-top: 8px;
+}

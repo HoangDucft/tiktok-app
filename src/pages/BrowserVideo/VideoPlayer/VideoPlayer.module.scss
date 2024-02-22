@@ -1,0 +1,308 @@
+.video-player {
+    cursor: pointer;
+    height: 100%;
+    background-color: rgba(22, 24, 35, 0.6);
+    position: relative;
+    padding: 0 80px;
+    overflow: hidden;
+}
+.video-background {
+    // set chiều dài rộng cố định là 10%
+    width: 10%;
+    height: 10%;
+    // căn giữa bằng top left
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    // lấy chính giữa hình
+    // read more : https://stackoverflow.com/questions/38714276/background-50-50-cover-what-does-it-mean
+    background: 50% / cover no-repeat;
+    // transform : thay đổi , scale: tỉ lệ ---> tăng giảm tỉ lệ hình ảnh, tỉ lệ mặc định là 11 thì tăng lên 11
+    transform: scale(11);
+    filter: blur(2px);
+    opacity: 0.3;
+}
+.video-wrapper {
+    background-color: rgba(22, 24, 35, 0.06);
+    height: 100%;
+}
+
+.video-image {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.video {
+    // css này để cho video nằm nên trên hình ảnh và khi hình ảnh bị visibility đi thì video vẫn còn
+    position: absolute;
+    top: 0;
+    left: 0;
+    //
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.video-progress {
+    display: flex;
+    width: calc(100% - 160px);
+    height: 24px;
+    position: absolute;
+    bottom: 28px;
+    align-items: center;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 56.25vh;
+    // padding bên trái bên phải từ border vào content
+    padding-inline: 16px;
+}
+.seekbar-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 24px;
+    flex: 1 1 auto;
+    position: relative;
+}
+.seekbar-background {
+    width: 99%;
+    background-color: rgba(255, 255, 255, 0.34);
+    position: absolute;
+    height: 4px;
+    left: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 10px;
+}
+.seekbar-range {
+    background-color: rgb(255, 255, 255);
+    width: 20%;
+    height: 6px;
+    display: block;
+    position: absolute;
+    border-radius: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
+}
+.seekbar-circle {
+    width: 16px;
+    height: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.753);
+    z-index: 3;
+    background-color: var(--white);
+    position: absolute;
+    border-radius: 50%;
+    transform: translate(0%, -50%);
+    top: 50%;
+    pointer-events: none;
+    user-select: none;
+}
+.seekbar-input {
+    background-color: rbga(8, 80, 214, 0.644);
+    height: 4px;
+    width: 100%;
+    opacity: 0;
+    margin: 0 auto;
+}
+
+.seekbar-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 88px;
+    font-size: 14px;
+    line-height: 24px;
+    color: rgb(255, 255, 255);
+    text-align: end;
+    padding: 0 8px;
+}
+
+.play-icon_wrapper {
+    position: absolute;
+    top: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.play-icon_wrapper {
+    display: none;
+    &.active {
+        display: flex;
+    }
+}
+
+.play-icon {
+    width: 7rem;
+    height: 7rem;
+}
+
+.close-icon_wrapper {
+    display: flex;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    background-color: hsla(0, 0%, 100%, 0.12);
+    border-radius: 50%;
+    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    &:hover {
+        background-color: rgba(37, 37, 37, 0.6);
+        opacity: 0.7;
+    }
+}
+
+.tiktok-logo_wrapper {
+    position: absolute;
+    top: 20px;
+    left: 84px;
+}
+.tiktok-logo {
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+}
+.volume-container {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    bottom: 60px;
+    transform: rotate(90deg);
+    align-items: center;
+    transform-origin: calc(100% - 20px);
+    &:hover {
+        .volume-control {
+            opacity: 1;
+        }
+    }
+}
+.volume-control {
+    display: flex;
+    transform: rotate(180deg);
+    width: 100px;
+    height: 28px;
+    background-color: hsla(0, 0%, 100%, 0.12);
+    border-radius: 32px;
+    margin: 0 8px;
+    padding: 0 20px;
+    position: relative;
+    align-items: center;
+    opacity: 1;
+    &.active {
+        opacity: 0;
+    }
+}
+.volume-background {
+    background-color: hsla(0, 0%, 100%, 0.34);
+    border-radius: 100px;
+    height: 4px;
+    width: 100%;
+    position: relative;
+
+    & .volume-input {
+        position: absolute;
+        right: -6px;
+        height: 4px;
+        left: -10px;
+        opacity: 0;
+    }
+}
+
+.volume-range {
+    background-color: #fff;
+    border-radius: inherit;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0%;
+}
+.volume-circle {
+    background-color: inherit;
+    border-radius: 50%;
+    height: 16px;
+    position: absolute;
+    right: -6px;
+    top: -6px;
+    width: 16px;
+}
+.browser-sound {
+    transform: rotate(-90deg);
+    position: absolute;
+    bottom: -5px;
+    right: 4px;
+}
+.volume-default_wrapper,
+.volume-mute_wrapper {
+    position: absolute;
+    color: var(--white);
+    align-items: center;
+    background-color: hsla(0, 0%, 100%, 0.12);
+    border-radius: 50%;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+.top-arrow_wrapper,
+.bottom-arrow_wrapper {
+    position: absolute;
+    top: calc(50% - 48px);
+    right: 20px;
+    transform: rotate(-90deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsla(0, 0%, 100%, 0.12);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: none;
+    outline: none;
+    &:hover {
+        background-color: rgba(37, 37, 37, 0.6);
+        opacity: 0.7;
+    }
+}
+
+.bottom-arrow_wrapper {
+    top: calc(50% + 8px);
+    transform: rotate(90deg);
+}
+
+.browser-report {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: hsla(0, 0%, 100%, 0.12);
+    border-radius: 100px;
+    color: var(--white);
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    line-height: 20px;
+    &:hover {
+        background-color: rgba(37, 37, 37, 0.6);
+        opacity: 0.7;
+    }
+}
+.report-wrapper {
+    margin-right: 5px;
+}
+
+.report-title {
+    font-size: 14px;
+    font-weight: 700;
+}

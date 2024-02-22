@@ -1,0 +1,13 @@
+.layout-modal {
+    position: fixed;
+    // 3 css ở dưới giúp căn giữa một modal
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    inset: 0;
+
+    min-height: 20rem;
+}

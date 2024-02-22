@@ -1,0 +1,103 @@
+.video-card {
+    position: relative;
+    &:hover {
+        .play-icon,
+        .pause-icon,
+        .control-volume,
+        .report {
+            opacity: 1;
+        }
+    }
+}
+
+.video-ui {
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+}
+
+.play-icon,
+.pause-icon {
+    position: absolute;
+    bottom: 25px;
+    margin-left: 26px;
+    opacity: 0;
+}
+
+.control-play {
+    position: absolute;
+    z-index: 5;
+}
+
+.control-volume {
+    position: absolute;
+    bottom: 0px;
+    right: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    &.active {
+        opacity: 1;
+    }
+    .range-volume {
+        width: 24px;
+        height: 64px;
+        margin: 8px 7px;
+        position: relative;
+        cursor: initial;
+        background: rgba(22, 24, 35, 0.34);
+        border-radius: 32px;
+        bottom: 50px;
+        &.active {
+            opacity: 0;
+        }
+        input {
+            // bien range thanh mau trong suot mau trang
+            background-color: #fff;
+            border-radius: 4px;
+            bottom: 30px;
+            height: 2px;
+            position: absolute;
+            right: -11px;
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            width: 46px;
+
+            &::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                width: 12px;
+                height: 12px;
+                background-color: #fff;
+                border-radius: 50%;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.icon {
+    position: absolute;
+}
+
+.report {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.report-title {
+    margin-left: 4px;
+}

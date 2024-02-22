@@ -1,0 +1,30 @@
+.share-list {
+    width: 280px;
+    overflow: overlay;
+    position: relative;
+}
+
+.share-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 11px 16px;
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.share-title {
+    font-size: 16px;
+    color: #333333;
+    margin-left: 10px;
+}
+.expanded-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}

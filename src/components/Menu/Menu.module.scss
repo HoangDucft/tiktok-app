@@ -1,0 +1,50 @@
+.menu-list {
+    width: 224px;
+    .menu-item {
+        margin-left: 0;
+    }
+}
+
+.menu-poper {
+    padding-bottom: 8px;
+}
+
+.menu-body {
+    overflow-y: auto;
+}
+
+.menu-item {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 0;
+    color: var(--black);
+    padding: 11px 16px;
+    line-height: 1.8rem;
+    &:hover {
+        background: rgba(22, 24, 35, 0.06);
+    }
+    &.separate {
+        border-top: 1px solid rgba(22, 24, 25, 0.12);
+    }
+}
+
+.header {
+    position: relative;
+    height: 40px;
+    margin-top: -8px;
+    flex-shrink: 0;
+}
+
+.back-btn {
+    width: 40px;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

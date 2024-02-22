@@ -1,0 +1,88 @@
+.wrapper {
+    width: 356px;
+    min-height: 1000px;
+    &.shrink {
+        width: 240px;
+    }
+}
+
+.loggin {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid #ccc;
+    padding: 16px 0;
+}
+
+.loggin-title {
+    color: rgba(22, 24, 35, 0.5);
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.discover {
+    border-top: 1px solid rgba(22, 24, 35, 0.08);
+    padding: 8px;
+}
+.discover-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.title-list {
+    color: rgba(22, 24, 35, 0.75);
+    margin-right: 200px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+.hashtag {
+    display: flex;
+    font-size: 1.4rem;
+    height: 2.4rem;
+    width: fit-content;
+    padding: 3px 10px;
+    background: #fff;
+    border-radius: 1.2rem;
+    border: 1px solid #ccc;
+    font-weight: 400;
+    margin-bottom: 1.2rem;
+    color: rgba(22, 24, 35, 0.75);
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.hashtag span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.hashtag svg {
+    margin-right: 6px;
+}
+
+.footer {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.link,
+.link .link {
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 20px;
+}
+
+.navigation {
+    color: rgba(22, 24, 35, 0.5);
+    margin-left: 8px;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.coppy-right {
+    color: rgba(22, 24, 35, 0.5);
+}
