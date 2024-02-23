@@ -1,5 +1,4 @@
 {
-    "homepage": "https://HoangDucft.github.io/tiktok-app",
     "name": "tiktok",
     "version": "0.1.0",
     "private": true,
@@ -34,8 +33,6 @@
         "react-router-dom": "^6.3.0"
     },
     "scripts": {
-        "deploy": "gh-pages -d build",
-        "predeploy": "npm run build",
         "start": "react-app-rewired start",
         "build": "react-app-rewired build",
         "test": "react-app-rewired test",
