@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/git@github.com:HoangDucft/tiktok-app.git/static/css/main.a2540c19.css",
-    "main.js": "/git@github.com:HoangDucft/tiktok-app.git/static/js/main.a7c558fa.js",
-    "static/js/787.fe00223f.chunk.js": "/git@github.com:HoangDucft/tiktok-app.git/static/js/787.fe00223f.chunk.js",
-    "static/media/loginWithQRGuide.gif": "/git@github.com:HoangDucft/tiktok-app.git/static/media/loginWithQRGuide.ff9c987d0c494fb85fc5.gif",
-    "static/media/ProximaNova-Semibold.woff2": "/git@github.com:HoangDucft/tiktok-app.git/static/media/ProximaNova-Semibold.db7972dbe0b808f96bae.woff2",
-    "static/media/billgate.jpg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/billgate.c9c1055a8e00c2c0318b.jpg",
-    "static/media/QR-image.png": "/git@github.com:HoangDucft/tiktok-app.git/static/media/QR-image.47624c235266dedd8e4d.png",
-    "static/media/sofiapro-bold.woff": "/git@github.com:HoangDucft/tiktok-app.git/static/media/sofiapro-bold.086ed00f3060992f2938.woff",
-    "static/media/microsoft-image.png": "/git@github.com:HoangDucft/tiktok-app.git/static/media/microsoft-image.f1596f39e85631c052c4.png",
-    "static/media/exampleQR.jpg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/exampleQR.c1a2bd9060db2bd4668f.jpg",
-    "static/media/Proxima-Nova-Bold.woff": "/git@github.com:HoangDucft/tiktok-app.git/static/media/Proxima-Nova-Bold.6cd7dcaa6293ecf61e80.woff",
-    "static/media/denis dang.jpg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/denis dang.efb833f2ffb8f5fb3e3d.jpg",
-    "static/media/jack ma.jpg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/jack ma.b9c6f8897ea52f9b08f0.jpg",
-    "static/media/Proxima-Nova-Regular.woff2": "/git@github.com:HoangDucft/tiktok-app.git/static/media/Proxima-Nova-Regular.6c83037ae28747e6d774.woff2",
-    "static/media/einstein.jpg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/einstein.ae9e813b076675a3f18d.jpg",
-    "static/media/logo.svg": "/git@github.com:HoangDucft/tiktok-app.git/static/media/logo.d8f6a0c420fccc476878592646e3fc94.svg",
-    "static/media/no-image.jfif": "/git@github.com:HoangDucft/tiktok-app.git/static/media/no-image.5cdb59ebfc3ffb3b7c87.jfif",
-    "index.html": "/git@github.com:HoangDucft/tiktok-app.git/index.html",
-    "main.a2540c19.css.map": "/git@github.com:HoangDucft/tiktok-app.git/static/css/main.a2540c19.css.map",
-    "main.a7c558fa.js.map": "/git@github.com:HoangDucft/tiktok-app.git/static/js/main.a7c558fa.js.map",
-    "787.fe00223f.chunk.js.map": "/git@github.com:HoangDucft/tiktok-app.git/static/js/787.fe00223f.chunk.js.map"
+    "main.css": "/tiktok-app/static/css/main.c43f7f2c.css",
+    "main.js": "/tiktok-app/static/js/main.64f17bec.js",
+    "static/js/787.fe00223f.chunk.js": "/tiktok-app/static/js/787.fe00223f.chunk.js",
+    "static/media/loginWithQRGuide.gif": "/tiktok-app/static/media/loginWithQRGuide.ff9c987d0c494fb85fc5.gif",
+    "static/media/ProximaNova-Semibold.woff2": "/tiktok-app/static/media/ProximaNova-Semibold.db7972dbe0b808f96bae.woff2",
+    "static/media/billgate.jpg": "/tiktok-app/static/media/billgate.c9c1055a8e00c2c0318b.jpg",
+    "static/media/QR-image.png": "/tiktok-app/static/media/QR-image.47624c235266dedd8e4d.png",
+    "static/media/sofiapro-bold.woff": "/tiktok-app/static/media/sofiapro-bold.086ed00f3060992f2938.woff",
+    "static/media/microsoft-image.png": "/tiktok-app/static/media/microsoft-image.f1596f39e85631c052c4.png",
+    "static/media/exampleQR.jpg": "/tiktok-app/static/media/exampleQR.c1a2bd9060db2bd4668f.jpg",
+    "static/media/Proxima-Nova-Bold.woff": "/tiktok-app/static/media/Proxima-Nova-Bold.6cd7dcaa6293ecf61e80.woff",
+    "static/media/denis dang.jpg": "/tiktok-app/static/media/denis dang.efb833f2ffb8f5fb3e3d.jpg",
+    "static/media/jack ma.jpg": "/tiktok-app/static/media/jack ma.b9c6f8897ea52f9b08f0.jpg",
+    "static/media/Proxima-Nova-Regular.woff2": "/tiktok-app/static/media/Proxima-Nova-Regular.6c83037ae28747e6d774.woff2",
+    "static/media/einstein.jpg": "/tiktok-app/static/media/einstein.ae9e813b076675a3f18d.jpg",
+    "static/media/logo.svg": "/tiktok-app/static/media/logo.d8f6a0c420fccc476878592646e3fc94.svg",
+    "static/media/no-image.jfif": "/tiktok-app/static/media/no-image.5cdb59ebfc3ffb3b7c87.jfif",
+    "index.html": "/tiktok-app/index.html",
+    "main.c43f7f2c.css.map": "/tiktok-app/static/css/main.c43f7f2c.css.map",
+    "main.64f17bec.js.map": "/tiktok-app/static/js/main.64f17bec.js.map",
+    "787.fe00223f.chunk.js.map": "/tiktok-app/static/js/787.fe00223f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a2540c19.css",
-    "static/js/main.a7c558fa.js"
+    "static/css/main.c43f7f2c.css",
+    "static/js/main.64f17bec.js"
   ]
 }
